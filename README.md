@@ -8,3 +8,6 @@ Make your domain ready for HTTPS. Thanks to [Let’s Encrypt](https://letsencryp
 - PostgreSQL (only for production)
 
 ## Setup
+```bash
+$ mv config/lc.yml.bak config/lc.yml
+```

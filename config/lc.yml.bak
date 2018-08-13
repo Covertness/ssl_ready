@@ -1,0 +1,7 @@
+---
+development:
+  private_key: ''
+test:
+  private_key: ''
+production:
+  private_key: ''
