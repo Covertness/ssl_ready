@@ -1,0 +1,7 @@
+<%= form_tag("/domains", method: "post") do %>
+  <%= label_tag(:source_host, "Source host:") %>
+  <%= text_field_tag(:source_host) %>
+  <%= label_tag(:dest_host, "Dest host:") %>
+  <%= text_field_tag(:dest_host) %>
+  <%= submit_tag("Connect") %>
+<% end %>

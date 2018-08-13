@@ -1,0 +1,4 @@
+:schedule:
+  renew_cert:
+    cron: '0 0 * * * * America/Los_Angeles'         # hourly
+    class: AutoRenewCertificateWorker
