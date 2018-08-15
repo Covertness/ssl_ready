@@ -1,6 +1,9 @@
 # domain
 class DomainsController < ApplicationController
   skip_before_action :verify_authenticity_token # remove after add auth
+
+  before_action :check_domain, only: %i[create check]
+
   helper_method :domain
 
   def index
@@ -36,6 +39,10 @@ class DomainsController < ApplicationController
     head :no_content
   end
 
+  def check
+    json_response(status: 0)
+  end
+
   private
 
   def domain_params
@@ -52,12 +59,17 @@ class DomainsController < ApplicationController
 
   def domain_json(domain)
     domain.as_json(
-      only: %i[id source_host dest_host state renewal_date], 
+      only: %i[id source_host dest_host state renewal_date],
       include: %i[flux]
     )
   end
 
   def cache_dest
     $redis_certificate.set("#{domain.source_host}-dest", domain.dest_host)
+  end
+
+  def check_domain
+    success = CheckCnameService.new.call(params[:source_host])
+    json_response({ status: 1, desc: 'invalid domain' }, :bad_request) unless success
   end
 end

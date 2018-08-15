@@ -1,6 +1,7 @@
 require 'openssl'
 require 'acme-client'
 
+# generate ssl cert
 class GenerateCertificateService
   TIMEOUT_LIMIT = 30 # in seconds
 
