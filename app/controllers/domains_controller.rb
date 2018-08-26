@@ -24,6 +24,8 @@ class DomainsController < ApplicationController
   end
 
   def show
+    GenerateCertificateWorker.perform_async(domain.id) if domain.state == 'verify_failed'
+
     json_response(domain_json(domain)) if request.format.json?
   end
 

@@ -3,6 +3,8 @@ require 'resolv'
 # check dns cname
 class CheckCnameService
   def call(domain)
+  	return true if Rails.env.test?
+  	
     r = Resolv::DNS.open do |dns|
       dns.getresource(domain, Resolv::DNS::Resource::IN::CNAME)
     end

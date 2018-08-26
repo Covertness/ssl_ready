@@ -18,6 +18,8 @@ class GenerateCertificateService
   end
 
   def call
+    return if @domain.state == 'verifying'
+    
     $redis_challenge.set(verification_token[:query], verification_token[:answer])
 
     @domain.update!(state: :verifying)
