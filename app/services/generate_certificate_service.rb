@@ -3,7 +3,7 @@ require 'acme-client'
 
 # generate ssl cert
 class GenerateCertificateService
-  TIMEOUT_LIMIT = 30 # in seconds
+  TIMEOUT_LIMIT = 120 # in seconds
 
   def initialize(domain)
     @domain = domain
@@ -27,6 +27,7 @@ class GenerateCertificateService
       while challenge.status == 'pending' and timeout_guard < TIMEOUT_LIMIT
         timeout_guard += 1
         sleep 1
+        challenge.reload
       end
 
       if challenge.status == 'valid'
